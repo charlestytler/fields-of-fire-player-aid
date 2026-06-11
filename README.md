@@ -1,8 +1,8 @@
-# Fields of Fire Companion
+# Fields of Fire Player Aid
 
 <kbd>[Open App](https://charlestytler.github.io/fields-of-fire-companion/)</kbd>
 
-A small, offline-friendly web app for stepping through the **Fields of Fire** Player Aids during a game.
+A small, offline-friendly companion app for stepping through the **Fields of Fire** Player Aids during a game.
 
 The app is designed as a mobile-first player aid for phones and tablets. It starts at a Turn Dashboard, then lets you move through the active turn one phase at a time, with mission-specific filtering for Defensive Missions, Offensive Missions, and Combat Patrols.
 
