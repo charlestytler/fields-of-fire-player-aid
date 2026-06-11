@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#24372f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FoF Aid">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Fields of Fire Turn Aid</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icon.svg">
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <button class="icon-button" id="dashboardButton" type="button" aria-label="Open dashboard">
+          <span aria-hidden="true">FoF</span>
+        </button>
+        <div class="phase-meta">
+          <p id="phaseKicker">Turn Dashboard</p>
+          <h1 id="phaseTitle">Fields of Fire</h1>
+        </div>
+        <button class="icon-button" id="jumpToggle" type="button" aria-label="Open phase list" aria-expanded="false">
+          <span aria-hidden="true">List</span>
+        </button>
+      </header>
+
+      <main>
+        <section class="dashboard" id="dashboard" aria-labelledby="dashboardTitle">
+          <div class="dashboard-heading">
+            <p class="eyebrow">Turn Dashboard</p>
+            <h2 id="dashboardTitle">Set the turn, then run the Sequence of Play.</h2>
+          </div>
+
+          <div class="dashboard-grid">
+            <label class="field">
+              <span>Turn</span>
+              <input id="turnInput" inputmode="numeric" min="1" type="number" value="1">
+            </label>
+
+            <label class="field">
+              <span>Mission</span>
+              <select id="missionSelect">
+                <option value="defensive">Defensive</option>
+                <option value="offensive">Offensive</option>
+                <option value="patrol">Combat Patrol</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Visibility</span>
+              <select id="visibilitySelect">
+                <option>Good</option>
+                <option>Limited</option>
+                <option>Night</option>
+                <option>Smoke / Dust</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Activity</span>
+              <select id="activitySelect">
+                <option>Normal</option>
+                <option>Quiet</option>
+                <option>Intense</option>
+                <option>Mission Special</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="status-card">
+            <span>Current phase</span>
+            <strong id="dashboardPhase">3.1 Higher HQ Event</strong>
+            <small id="dashboardFilter">Showing Defensive sequence.</small>
+          </div>
+
+          <div class="dashboard-actions">
+            <button class="primary-action" id="startButton" type="button">Start Next Phase</button>
+            <button class="secondary-action" id="referenceButton" type="button">Jump to Phase</button>
+          </div>
+        </section>
+
+        <section class="phase-view" id="phaseView" hidden aria-live="polite">
+          <div class="progress-wrap" aria-label="Phase progress">
+            <span id="progressText">Phase 1 of 8</span>
+            <div class="progress-track">
+              <span id="progressBar"></span>
+            </div>
+          </div>
+
+          <article class="phase-card">
+            <p class="eyebrow" id="phaseNumber">3.1</p>
+            <h2 id="taskTitle">Higher HQ Event</h2>
+            <p class="task-copy" id="taskCopy"></p>
+            <div class="reminder-strip" id="reminderStrip"></div>
+            <div class="substeps" id="substeps"></div>
+          </article>
+
+          <nav class="phase-controls" aria-label="Phase navigation">
+            <button class="secondary-action" id="previousButton" type="button">Previous</button>
+            <button class="primary-action" id="nextButton" type="button">Next Phase</button>
+          </nav>
+        </section>
+      </main>
+
+      <aside class="jump-panel" id="jumpPanel" hidden>
+        <div class="jump-panel-header">
+          <h2>Sequence</h2>
+          <button class="text-button" id="closeJumpButton" type="button">Close</button>
+        </div>
+        <ol id="jumpList"></ol>
+      </aside>
+    </div>
+  </body>
+</html>

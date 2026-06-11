@@ -1,0 +1,19 @@
+{
+  "name": "Fields of Fire Turn Aid",
+  "short_name": "FoF Aid",
+  "description": "Offline Sequence of Play dashboard for Fields of Fire.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f0e8",
+  "theme_color": "#24372f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
