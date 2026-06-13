@@ -44,7 +44,8 @@
 
 ## Approval Process
 - You may perform file edits without approval if directly related to the feature you are working on.
-- Request approval for git commits and show git status and summary of changes when requesting approval.
+- You may make focused git commits without additional approval when the commit only includes files in this working directory and changes directly related to the requested task.
+- Show a brief summary of committed changes after committing.
 
 ## Subagent Workflows
 
@@ -72,9 +73,9 @@ When the user explicitly asks to use the new-feature subagent workflow:
 6. Once the design is documented, spawn `software-developer` and ask it to generate an implementation plan for the design.
 7. Share the `software-developer` implementation plan with `product-designer`, `tutorial-player`, `rules-expert`, and `ux-reviewer` for feedback.
 8. Ask `software-developer` to incorporate the feedback, then implement the plan in code. All software file edits must still be done by `software-developer`.
-9. `software-developer` should make focused git commits for all implemented changes after commit approval has been requested and granted. All commit messages for commits made by a subagent must be prefixed with `[agent]`.
+9. `software-developer` should make focused git commits for all implemented changes when the commit only includes files in this working directory and changes directly related to the requested task. All commit messages for commits made by a subagent must be prefixed with `[agent]`.
 10. Once the design has been implemented and committed, ask `product-designer`, `tutorial-player`, and `ux-reviewer` to do a final test use of the web app against their expectations for the feature.
-11. For minor issues found during final test use, ask `software-developer` to implement focused fixes, request commit approval, and make additional `[agent]`-prefixed commits.
+11. For minor issues found during final test use, ask `software-developer` to implement focused fixes and make additional `[agent]`-prefixed commits when the commit only includes files in this working directory and changes directly related to the requested task.
 12. For large issues found during final test use, document them in a root `ISSUES.md` file instead of expanding the feature scope without approval.
 13. Main agent: integrate findings, run relevant checks, verify the working tree and commit state, and summarize the completed work.
 

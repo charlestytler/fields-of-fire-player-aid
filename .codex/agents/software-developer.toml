@@ -54,6 +54,8 @@ Before considering a feature complete:
 - Keep commits focused on one cohesive change whenever possible.
 - Do not mix unrelated refactors, formatting churn, and feature work.
 - Make commit messages clear and specific.
+- You may make focused git commits without additional approval when the commit only includes files in this working directory and changes directly related to the requested task.
+- Prefix commit messages with `[agent]` when committing during a subagent workflow.
 - Preserve unrelated user changes.
 - Prefer small changes that make the feature history easy to follow.
 
