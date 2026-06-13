@@ -55,6 +55,12 @@
 - Stop any verification server after checks complete.
 - If sandbox approval is required for local port binding, request approval once using the command prefix `["python3", "-m", "http.server"]`.
 
+## Blocked Source Files
+
+- If required source files, references, images, PDFs, or other assets are missing, inaccessible, unreadable, or present only as Git LFS pointer files, pause and ask the user how to proceed.
+- Do not treat inaccessible source material as validated. Clearly describe what is blocked and which file or asset is affected.
+- Do not replace missing source material with guesses or unsourced rules/content.
+
 ## Subagent Workflows
 
 Codex has these project subagents:
