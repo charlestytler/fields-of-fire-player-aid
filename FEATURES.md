@@ -6,7 +6,7 @@ This file is the inspectable feature source of truth for agents working on the a
 
 Status: First draft implemented
 
-Players should step through phases of the Sequence of Play with conditional behavior filtered out based on initial game settings, such as Offensive, Defensive, or Combat Patrol mission, turn number, and BN HQ in-play.
+Players should step through phases of the Sequence of Play with conditional behavior filtered out based on initial game settings, such as Offensive, Defensive, or Combat Patrol mission, turn number, visibility, and contact state.
 
 Instructions should be bullet-oriented so new players can see all steps and veteran players can skim them as a checklist.
 

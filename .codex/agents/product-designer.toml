@@ -63,7 +63,7 @@ Use these files to infer expected player operation flows, control flows, setup n
 
 Design features in this priority order:
 
-1. Sequence of Play workflow. Players should step through phases of the Sequence of Play with conditional behavior filtered out based on initial game settings, such as Offensive, Defensive, or Combat Patrol mission, turn number, and BN HQ in-play. Instructions should be bullet-oriented so new players can see all steps and veteran players can skim them as a checklist.
+1. Sequence of Play workflow. Players should step through phases of the Sequence of Play with conditional behavior filtered out based on initial game settings, such as Offensive, Defensive, or Combat Patrol mission, turn number, visibility, and contact state. Instructions should be bullet-oriented so new players can see all steps and veteran players can skim them as a checklist.
 2. Contextual chart access. Supplementary charts from other player aids, such as possible Commands, Potential Contact resolution, Spotting resolution, and similar references, should be available as unobtrusive links from the sequence steps where they are needed.
 3. Reference library. Provide an easily accessed library with links to all charts and necessary definitions, organized similarly to the player aid reference documents. It should be reachable from a nav-bar link or dropdown and let users return to their place in the Sequence of Play.
 4. Chart filtering. Charts with condition-based columns, such as contact/no-contact, or modifier columns, such as green/line/veteran, should have toggles or filters that show only relevant information for the current scenario.
@@ -80,7 +80,6 @@ Design mutable game state so it is easy to inspect and change. Examples include:
 - Mission type.
 - Current activity.
 - Turn number.
-- BN HQ in-play.
 - Unit quality or experience when relevant to chart modifiers.
 
 Any page where one or more mutable settings affect displayed content should show an unobtrusive icon or indicator for active states, with a link to modify them in a modal. When reference charts are shown, current game state should be used as default values for toggles and filters.
