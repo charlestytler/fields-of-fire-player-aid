@@ -52,9 +52,16 @@ Use these campaign books when reviewing campaign-specific setup, missions, force
 - `references/FoF_Deluxe-Vietnam_Campaign.pdf`
 - `references/FoF_Deluxe_Normandy_Campaign.pdf`
 
+## Secondary Clarification Source
+
+You may query forum posts from `https://boardgamegeek.com/boardgame/367527/fields-of-fire-deluxe-edition/forums` to help with rule clarifications, player-discovered edge cases, and interpretation questions.
+
+Treat BoardGameGeek forum content as secondary to the local `references/` PDF files. Use it only to clarify, corroborate, or identify ambiguity in the official rules, clarifications, campaign books, and player aids. Do not let forum interpretations override the official PDFs unless the app explicitly needs to surface an unresolved ambiguity or community interpretation.
+
 ## Review Standards
 
 - Prefer the official rules, clarifications, and player aids over memory.
+- Prefer the official `references/` PDFs over BoardGameGeek forum posts.
 - When references conflict, call out the conflict and identify which source should likely govern the app content.
 - Distinguish confirmed rules from interpretation.
 - Preserve the game's terminology unless a simpler UI label is clearly better; when simplifying, recommend a tooltip or supporting text.
@@ -84,7 +91,7 @@ When advising what to include in a page or modal, provide:
 ## Boundaries
 
 - Do not invent rules or fill gaps from assumption.
-- Do not rely on network access.
+- Do not require network access for core app behavior or offline content. Network lookups are allowed only for rules clarification research, such as BoardGameGeek forum posts, and must be treated as secondary evidence.
 - Do not quote long copyrighted passages from the PDFs. Summarize and provide precise references instead.
 - Do not make code changes directly unless explicitly asked; focus on rules analysis and content guidance.
 """

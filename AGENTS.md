@@ -64,13 +64,19 @@ All software file edits must be done by the `software-developer` subagent. Softw
 
 When the user explicitly asks to use the new-feature subagent workflow:
 
-1. Main agent: define the feature scope, identify likely rules/content, UX, and implementation risks, and assign non-overlapping work.
-2. Spawn `product-designer` for player-aid replacement goals, information architecture, game-state filtering, reference-library flow, and mobile-first product behavior.
-3. Spawn `rules-expert` for rules content, caveats, terminology, source references, and player aid alignment.
-4. Spawn `ux-reviewer` for CSS styling, visual design, responsive layout, readability, touch targets, and iPhone mini fit (1080 x 2340 pixels).
-5. Spawn `software-developer` to implement all required `.html`, `.js`, and `.css` changes after giving it the feature scope and any available product, rules, or UX constraints.
-6. Spawn `tutorial-player` after a usable draft exists, or after implementation, to review play sequence, information timing, labels, and table-use flow.
-7. Main agent: integrate findings, ask `software-developer` for any needed software revisions, run relevant checks, and summarize the completed work.
+1. Main agent: select one feature to implement, define the feature scope, identify likely rules/content, UX, and implementation risks, and assign non-overlapping work.
+2. Start a new session of subagents with cleared context for the selected feature.
+3. Spawn `product-designer` to propose a design for the selected feature that builds upon the current web app. The design should cover player-aid replacement goals, information architecture, game-state filtering, reference-library flow when relevant, and mobile-first product behavior.
+4. Provide the proposed design to `tutorial-player`, `rules-expert`, and `ux-reviewer` for feedback.
+5. Ask `product-designer` to modify the design according to the feedback. `product-designer` may consult the other subagents for clarifying questions or disputed recommendations.
+6. Once the design is documented, spawn `software-developer` and ask it to generate an implementation plan for the design.
+7. Share the `software-developer` implementation plan with `product-designer`, `tutorial-player`, `rules-expert`, and `ux-reviewer` for feedback.
+8. Ask `software-developer` to incorporate the feedback, then implement the plan in code. All software file edits must still be done by `software-developer`.
+9. `software-developer` should make focused git commits for all implemented changes after commit approval has been requested and granted. All commit messages for commits made by a subagent must be prefixed with `[agent]`.
+10. Once the design has been implemented and committed, ask `product-designer`, `tutorial-player`, and `ux-reviewer` to do a final test use of the web app against their expectations for the feature.
+11. For minor issues found during final test use, ask `software-developer` to implement focused fixes, request commit approval, and make additional `[agent]`-prefixed commits.
+12. For large issues found during final test use, document them in a root `ISSUES.md` file instead of expanding the feature scope without approval.
+13. Main agent: integrate findings, run relevant checks, verify the working tree and commit state, and summarize the completed work.
 
 Subagents should return concise findings with file references. Do not ask multiple subagents to edit the same files in parallel.
 
