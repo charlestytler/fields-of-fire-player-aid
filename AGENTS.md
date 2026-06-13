@@ -51,6 +51,7 @@
 Codex has these project subagents:
 
 - `rules-expert`: validates Fields of Fire rules accuracy, caveats, terminology, player aid alignment, and source references.
+- `product-designer`: designs player-aid replacement workflows, information architecture, game-state filtering, and mobile-first feature behavior.
 - `software-developer`: implements static PWA changes in vanilla HTML, CSS, and JavaScript.
 - `tutorial-player`: reviews player-facing flow as if actively playing through the app with tutorial missions and player aids.
 - `ux-reviewer`: reviews CSS, HTML structure, layout, readability, mobile fit, touch usability, and visual direction.
@@ -64,11 +65,12 @@ All software file edits must be done by the `software-developer` subagent. Softw
 When the user explicitly asks to use the new-feature subagent workflow:
 
 1. Main agent: define the feature scope, identify likely rules/content, UX, and implementation risks, and assign non-overlapping work.
-2. Spawn `rules-expert` for rules content, caveats, terminology, source references, and player aid alignment.
-3. Spawn `ux-reviewer` for CSS styling, visual design, responsive layout, readability, touch targets, and iPhone mini fit (1080 x 2340 pixels).
-4. Spawn `software-developer` to implement all required `.html`, `.js`, and `.css` changes after giving it the feature scope and any available rules or UX constraints.
-5. Spawn `tutorial-player` after a usable draft exists, or after implementation, to review play sequence, information timing, labels, and table-use flow.
-6. Main agent: integrate findings, ask `software-developer` for any needed software revisions, run relevant checks, and summarize the completed work.
+2. Spawn `product-designer` for player-aid replacement goals, information architecture, game-state filtering, reference-library flow, and mobile-first product behavior.
+3. Spawn `rules-expert` for rules content, caveats, terminology, source references, and player aid alignment.
+4. Spawn `ux-reviewer` for CSS styling, visual design, responsive layout, readability, touch targets, and iPhone mini fit (1080 x 2340 pixels).
+5. Spawn `software-developer` to implement all required `.html`, `.js`, and `.css` changes after giving it the feature scope and any available product, rules, or UX constraints.
+6. Spawn `tutorial-player` after a usable draft exists, or after implementation, to review play sequence, information timing, labels, and table-use flow.
+7. Main agent: integrate findings, ask `software-developer` for any needed software revisions, run relevant checks, and summarize the completed work.
 
 Subagents should return concise findings with file references. Do not ask multiple subagents to edit the same files in parallel.
 
@@ -76,7 +78,7 @@ Subagents should return concise findings with file references. Do not ask multip
 
 When the user explicitly asks to use the improvement subagent workflow:
 
-1. Main agent: classify the improvement as rules/content, UX/CSS, play-flow, implementation quality, or a combination.
+1. Main agent: classify the improvement as product design, rules/content, UX/CSS, play-flow, implementation quality, or a combination.
 2. Spawn only the relevant review subagents for the improvement type.
 3. Spawn `software-developer` for all required `.html`, `.js`, and `.css` edits.
 4. Prefer read-only review subagents before implementation when the requested improvement is ambiguous.
