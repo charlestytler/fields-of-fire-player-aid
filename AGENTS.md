@@ -47,6 +47,14 @@
 - You may make focused git commits without additional approval when the commit only includes files in this working directory and changes directly related to the requested task.
 - Show a brief summary of committed changes after committing.
 
+## Local Verification
+
+- For static PWA smoke tests, Codex may run `python3 -m http.server <port>` from this working directory.
+- Codex may run `curl` against `http://127.0.0.1:<port>/` and local asset URLs to verify served files.
+- Prefer an unused local port if the default port is busy.
+- Stop any verification server after checks complete.
+- If sandbox approval is required for local port binding, request approval once using the command prefix `["python3", "-m", "http.server"]`.
+
 ## Subagent Workflows
 
 Codex has these project subagents:
