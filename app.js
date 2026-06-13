@@ -229,7 +229,7 @@ const phases = [
           {
             id: "3.5.1-capture",
             label: "Capture qualifying Paralyzed or Litter Teams alone with unpinned opposing infantry that has a VOF rating.",
-            detail: "Apply the 8.15.1 capture caveat when determining whether capture occurs."
+            detail: "Apply the 8.15.1 capture caveat when determining whether capture occurs; enemies do not capture casualties."
           },
           {
             id: "3.5.1-prisoners",
@@ -238,8 +238,8 @@ const phases = [
           },
           {
             id: "3.5.1-auto",
-            label: "Enemy casualties on friendly-occupied or empty cards are captured automatically.",
-            detail: "No guard is required for this automatic capture case."
+            label: "Enemy casualties on unoccupied or friendly-occupied cards are automatically captured.",
+            detail: "Exception: enemy casualties in front of the MLR on unoccupied cards are not automatically captured. Enemies do not capture casualties."
           }
         ]
       },
@@ -318,7 +318,7 @@ const phases = [
           {
             id: "3.7.1-activity",
             label: "Update Current Activity Level if the map state changes.",
-            detail: "Activity Level does not drop to No Contact during this update unless a rule or mission instruction explicitly says so."
+            detail: "Activity Level does not drop to No Contact until no VOF/PDF markers are on the map, including unactivated mines and Pending fire missions, and no enemy units are Spotted."
           }
         ]
       },
@@ -339,8 +339,8 @@ const phases = [
           },
           {
             id: "3.7.2-no-drop",
-            label: "Activity Level does not drop to No Contact from this segment by default.",
-            detail: "Only lower it when the rules, chart, or mission instruction directs that change."
+            label: "Activity Level does not drop to No Contact until the map is clear of contact markers and Spotted enemies.",
+            detail: "Activity Level does not drop to No Contact until no VOF/PDF markers are on the map, including unactivated mines and Pending fire missions, and no enemy units are Spotted."
           }
         ]
       },
@@ -432,7 +432,7 @@ const phases = [
           {
             id: "3.8-final-update",
             label: "Adjust VOF, PDF, and Current Activity Level.",
-            detail: "Include Combat Effects and Clean Up changes. Activity Level does not drop to No Contact unless directed."
+            detail: "Include Combat Effects and Clean Up changes. Activity Level does not drop to No Contact until no VOF/PDF markers are on the map, including unactivated mines and Pending fire missions, and no enemy units are Spotted."
           },
           {
             id: "3.8-advance",
