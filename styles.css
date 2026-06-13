@@ -9,6 +9,7 @@
   --accent-soft: #dce8d5;
   --warning: #77592b;
   --warning-soft: #f1dfba;
+  --danger-soft: #f4e2d7;
   --shadow: 0 14px 34px rgba(29, 37, 32, 0.16);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -115,6 +116,10 @@ button {
   margin: 0 auto;
 }
 
+.phase-view {
+  padding-bottom: calc(112px + env(safe-area-inset-bottom));
+}
+
 .dashboard {
   display: grid;
   gap: 14px;
@@ -125,10 +130,15 @@ button {
   font-size: clamp(1.6rem, 9vw, 2.5rem);
 }
 
-.dashboard-grid {
+.dashboard-grid,
+.phase-state-controls {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
+}
+
+.phase-state-controls {
+  margin-bottom: 12px;
 }
 
 .field {
@@ -157,6 +167,34 @@ button {
   background: #fffdf8;
   border: 1px solid #c9beaa;
   border-radius: 7px;
+}
+
+.field input[type="checkbox"] {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.field small {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.25;
+}
+
+.check-field {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.check-field span,
+.check-field small {
+  grid-column: 1;
+}
+
+.check-field input {
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }
 
 .status-card,
@@ -231,76 +269,194 @@ button {
   transition: width 160ms ease;
 }
 
+.state-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.state-chip {
+  min-height: 30px;
+  padding: 6px 9px;
+  color: var(--accent-strong);
+  background: rgba(220, 232, 213, 0.86);
+  border: 1px solid #c3d5bd;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.15;
+}
+
 .phase-card {
   padding: 16px;
 }
 
 .phase-card h2 {
-  font-size: clamp(1.7rem, 9vw, 2.6rem);
+  font-size: clamp(1.45rem, 8vw, 2.25rem);
 }
 
 .task-copy {
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   color: #29342f;
-  font-size: 1.08rem;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.42;
 }
 
-.reminder-strip {
-  margin: 16px 0 0;
+.reminder-strip,
+.global-reminder {
+  margin: 14px 0 0;
   padding: 12px;
-  color: #352711;
-  background: var(--warning-soft);
-  border-left: 5px solid var(--warning);
   border-radius: 7px;
   font-weight: 760;
   line-height: 1.35;
 }
 
+.reminder-strip {
+  color: #352711;
+  background: var(--warning-soft);
+  border-left: 5px solid var(--warning);
+}
+
+.global-reminder {
+  color: #1f3428;
+  background: #e7efe1;
+  border-left: 5px solid var(--accent);
+}
+
 .substeps {
   display: grid;
-  gap: 8px;
+  gap: 0;
   margin-top: 16px;
 }
 
-.substep {
+.phase-group {
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+
+.phase-group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.phase-group h3 {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+  line-height: 1.18;
+}
+
+.do-now {
+  margin: 6px 0 10px;
+  color: var(--ink);
+  font-weight: 850;
+  line-height: 1.32;
+}
+
+.checklist {
   display: grid;
-  gap: 4px;
-  padding: 11px 12px;
+  gap: 8px;
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  color: var(--ink);
+  text-align: left;
   background: #fffdf8;
   border: 1px solid var(--line);
   border-radius: 8px;
 }
 
-.substep strong {
-  font-size: 0.98rem;
+.check-row.is-checked {
+  background: #edf4e8;
+  border-color: #abc7a1;
 }
 
-.substep span {
-  color: var(--muted);
+.check-marker {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  color: #fffdf8;
+  background: #fffdf8;
+  border: 2px solid #9b8f7b;
+  border-radius: 6px;
   font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.is-checked .check-marker {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.check-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.check-copy strong {
+  font-size: 0.94rem;
+  line-height: 1.24;
+}
+
+.check-copy span {
+  color: var(--muted);
+  font-size: 0.88rem;
   line-height: 1.32;
 }
 
-.detail-block {
-  padding: 10px 12px;
-  background: #f7f2e8;
-  border: 1px dashed #c8bca8;
+.is-checked .check-copy strong {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.phase-group.is-skipped {
+  margin: 8px 0;
+  padding: 12px;
+  color: #6f5c44;
+  background: var(--danger-soft);
+  border: 1px dashed #b88c72;
   border-radius: 8px;
 }
 
-.detail-block summary {
-  min-height: 32px;
-  color: var(--accent-strong);
-  font-weight: 850;
-  cursor: pointer;
+.phase-group.is-skipped h3,
+.phase-group.is-skipped .do-now {
+  color: #6f4c36;
 }
 
-.detail-block p {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.36;
+.check-row.is-skipped-row {
+  color: #6f5c44;
+  background: var(--danger-soft);
+  border-style: dashed;
+  border-color: #b88c72;
+  cursor: default;
+}
+
+.is-skipped-row .check-marker {
+  color: #6f4c36;
+  background: transparent;
+  border-color: #b88c72;
+}
+
+.is-skipped-row .check-copy strong,
+.is-skipped-row .check-copy span {
+  color: #6f4c36;
+}
+
+.skip-reason {
+  margin: 0;
+  color: #6f4c36;
+  font-size: 0.9rem;
+  font-weight: 850;
 }
 
 .phase-controls {
@@ -357,6 +513,8 @@ button {
 }
 
 .jump-panel button {
+  display: grid;
+  gap: 4px;
   width: 100%;
   min-height: 52px;
   padding: 12px;
@@ -367,17 +525,34 @@ button {
   border-radius: 8px;
 }
 
+.jump-panel button span {
+  font-weight: 850;
+}
+
+.jump-panel button small {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .jump-panel button[aria-current="step"] {
   outline: 3px solid #9fc7ab;
 }
 
 .skip-note {
+  min-height: 52px;
+  padding: 12px;
   color: #f7d99a;
+  background: rgba(255, 250, 240, 0.08);
+  border: 1px dashed rgba(247, 217, 154, 0.58);
+  border-radius: 8px;
   font-size: 0.84rem;
+  font-weight: 800;
 }
 
 @media (min-width: 520px) {
-  .dashboard-grid {
+  .dashboard-grid,
+  .phase-state-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -395,7 +570,7 @@ button {
 
   .dashboard-heading h2,
   .phase-card h2 {
-    font-size: 1.55rem;
+    font-size: 1.45rem;
   }
 
   .phase-card {
@@ -405,10 +580,11 @@ button {
 
   .task-copy {
     margin-top: 8px;
-    font-size: 0.98rem;
+    font-size: 0.96rem;
   }
 
   .reminder-strip,
+  .global-reminder,
   .substeps {
     margin-top: 10px;
   }

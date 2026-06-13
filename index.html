@@ -48,28 +48,19 @@
               <select id="missionSelect">
                 <option value="defensive">Defensive</option>
                 <option value="offensive">Offensive</option>
-                <option value="patrol">Combat Patrol</option>
+                <option value="combatPatrol">Combat Patrol</option>
               </select>
             </label>
 
-            <label class="field">
-              <span>Visibility</span>
-              <select id="visibilitySelect">
-                <option>Good</option>
-                <option>Limited</option>
-                <option>Night</option>
-                <option>Smoke / Dust</option>
-              </select>
+            <label class="field check-field">
+              <span>Limited Visibility</span>
+              <input id="limitedVisibilityInput" type="checkbox">
+              <small>Overall Visibility Modifier is +2 or greater.</small>
             </label>
 
             <label class="field">
-              <span>Activity</span>
-              <select id="activitySelect">
-                <option>Normal</option>
-                <option>Quiet</option>
-                <option>Intense</option>
-                <option>Mission Special</option>
-              </select>
+              <span>Current Activity Level</span>
+              <select id="activitySelect"></select>
             </label>
           </div>
 
@@ -91,6 +82,19 @@
             <div class="progress-track">
               <span id="progressBar"></span>
             </div>
+            <div class="state-chips" id="stateChips"></div>
+          </div>
+
+          <div class="phase-state-controls">
+            <label class="field">
+              <span>Current Activity Level</span>
+              <select id="phaseActivitySelect"></select>
+            </label>
+            <label class="field check-field">
+              <span>Limited Visibility</span>
+              <input id="phaseVisibilityInput" type="checkbox">
+              <small>Overall Visibility Modifier is +2 or greater.</small>
+            </label>
           </div>
 
           <article class="phase-card">
@@ -98,6 +102,7 @@
             <h2 id="taskTitle">Higher HQ Event</h2>
             <p class="task-copy" id="taskCopy"></p>
             <div class="reminder-strip" id="reminderStrip"></div>
+            <div class="global-reminder" id="globalReminder"></div>
             <div class="substeps" id="substeps"></div>
           </article>
 

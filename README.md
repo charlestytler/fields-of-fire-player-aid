@@ -8,7 +8,7 @@ The app is designed as a mobile-first player aid for phones and tablets. It star
 
 ## Features
 
-- Turn Dashboard with turn number, mission type, visibility, activity level, and current phase
+- Turn Dashboard with turn number, mission type, Limited Visibility, Current Activity Level, and current phase
 - Step-by-step Sequence of Play pages
 - Defensive vs Offensive / Combat Patrol phase filtering
 - Previous / Next phase navigation
