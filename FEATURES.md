@@ -4,7 +4,7 @@ This file is the inspectable feature source of truth for agents working on the a
 
 ## 1. Sequence of Play Workflow
 
-Status: Proposed
+Status: First draft implemented
 
 Players should step through phases of the Sequence of Play with conditional behavior filtered out based on initial game settings, such as Offensive, Defensive, or Combat Patrol mission, turn number, and BN HQ in-play.
 

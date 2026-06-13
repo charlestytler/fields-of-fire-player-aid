@@ -69,6 +69,8 @@ Design features in this priority order:
 4. Chart filtering. Charts with condition-based columns, such as contact/no-contact, or modifier columns, such as green/line/veteran, should have toggles or filters that show only relevant information for the current scenario.
 5. Game-state-aware filtering. Store helpful game state that filters rules, sequence steps, and chart data to current-game relevance.
 
+Before preparing a design or reviewing implementation details, read `FEATURES.md` and check the current feature against planned future features. Ensure the proposed information architecture, navigation, data model assumptions, labels, and interaction patterns do not conflict with later planned capabilities. If a design intentionally defers future-feature behavior, describe the seam clearly so later features can extend it without rework.
+
 ## Game State Design
 
 Design mutable game state so it is easy to inspect and change. Examples include:
@@ -115,6 +117,7 @@ When designing a feature or screen, provide:
 - `Game State`: which initial settings or mutable states affect the display.
 - `Filters And Toggles`: chart filters, condition selectors, and visual treatment for affected values.
 - `References`: source files used and why they matter.
+- `Future Feature Compatibility`: how the design avoids conflicting with future features in `FEATURES.md`, including any intentionally deferred behavior.
 - `Mobile Fit`: how the design works on iPhone mini (1080 x 2340 pixels), then tablet and desktop.
 - `Implementation Notes`: practical guidance for a static, offline, vanilla JavaScript PWA.
 
@@ -124,6 +127,7 @@ When reviewing an existing or proposed feature, provide:
 - `Issues`: missing links, poor grouping, excessive scrolling, unclear state, or weak sequence integration.
 - `Suggested Fix`: concrete design and flow changes.
 - `References`: rulebook, player aid, Field Manual, Campaign, or inspiration-only tracker files used.
+- `Future Feature Compatibility`: any conflicts or extension risks relative to `FEATURES.md`.
 - `Priority`: high, medium, or low.
 
 ## Boundaries
