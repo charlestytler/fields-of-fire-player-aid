@@ -15,20 +15,20 @@ const phases = [
     id: "higher-hq",
     number: "3.1",
     title: "Friendly Higher HQ Event Phase",
-    task: "Check for a Friendly Higher HQ event before mission-specific activity.",
-    reminder: "Turn 1 skips only the event draw. Starting on Turn 2, draw an Action card and check the HQ radio icon.",
+    task: "Starting on Turn 2, check for a Friendly Higher HQ event before mission-specific activity.",
+    reminder: "Starting on Turn 2, draw an Action card and check the HQ radio icon. Skip this phase on Turn 1.",
     groups: [
       {
         id: "event",
         heading: "Friendly Higher HQ Event",
         doNow: "Do now: check whether a Friendly Higher HQ event occurs.",
+        skipWhen: "turn1",
+        skipReason: "Starting on Turn 2.",
         steps: [
           {
             id: "3.1-event-draw",
             label: "Starting on Turn 2, draw an Action card and check for the HQ radio icon.",
-            detail: "On Turn 1, do not draw for this row.",
-            skipWhen: "turn1",
-            skipReason: "Starting on Turn 2."
+            detail: "Draw only when this phase is active."
           },
           {
             id: "3.1-resolve-event",
@@ -105,7 +105,7 @@ const phases = [
     number: "3.3",
     title: "Friendly Command Phase",
     task: "Activate eligible HQs and staff, then use initiative commands.",
-    reminder: "Limited Visibility: HQ/Staff max spend 4. Save limits: Green 2, Line 4, Veteran 6. Max LOS without Illumination/Night Observation Devices is Close Range.",
+    reminder: "Limited Visibility applies when the overall Visibility Modifier is +2 or greater. HQ/Staff max spend 4. Save limits: Green 2, Line 4, Veteran 6. Max LOS without Illumination/Night Observation Devices is Close Range.",
     groups: [
       {
         id: "3.3.1",
