@@ -5,7 +5,7 @@
 - Build this project as a Progressive Web App that can be installed on iPhone, iPad mini, and Android tablets.
 - The app must also work well as a static webpage hosted online.
 - Favor static, offline-friendly behavior. Do not add runtime API calls or features that require a network connection unless explicitly requested.
-- Treat small mobile screens as the primary experience, especially iPhone mini dimensions. Treat iPad mini as the secondary layout target.
+- Treat small mobile screens as the primary experience, especially iPhone mini dimensions (1080 x 2340 pixels). Treat iPad mini as the secondary layout target.
 
 ## Code Organization
 
@@ -26,7 +26,7 @@
 
 ## UI And UX
 
-- Design mobile-first. The iPhone mini viewport should be comfortable, readable, and fully usable without layout overlap.
+- Design mobile-first. The iPhone mini viewport (1080 x 2340 pixels) should be comfortable, readable, and fully usable without layout overlap.
 - Make touch targets large enough for finger input and keep common actions easy to reach.
 - Use responsive layouts that adapt gracefully from phone to iPad mini/tablet sizes.
 - Keep text readable, controls clear, and interactions predictable.
@@ -40,3 +40,44 @@
 - Use clear commit messages that describe the user-visible or developer-facing purpose of the change.
 - Check the working tree before editing and avoid overwriting unrelated user changes.
 - Run relevant local checks before committing when practical.
+- Never perform a --force action or any other that would overwrite/delete history.
+
+## Approval Process
+- You may perform file edits without approval if directly related to the feature you are working on.
+- Request approval for git commits and show git status and summary of changes when requesting approval.
+
+## Subagent Workflows
+
+Codex has these project subagents:
+
+- `rules-expert`: validates Fields of Fire rules accuracy, caveats, terminology, player aid alignment, and source references.
+- `software-developer`: implements static PWA changes in vanilla HTML, CSS, and JavaScript.
+- `tutorial-player`: reviews player-facing flow as if actively playing through the app with tutorial missions and player aids.
+- `ux-reviewer`: reviews CSS, HTML structure, layout, readability, mobile fit, touch usability, and visual direction.
+
+Codex only spawns subagents when the user explicitly asks for subagents, delegation, or a named subagent workflow. When a subagent workflow is active, keep the main agent responsible for planning, orchestration, integration review, final verification, and the final response.
+
+All software file edits must be done by the `software-developer` subagent. Software files include `.html`, `.js`, and `.css` files. The main agent may inspect, review, and coordinate those changes, but should not directly edit software files during a subagent workflow.
+
+### New Feature Workflow
+
+When the user explicitly asks to use the new-feature subagent workflow:
+
+1. Main agent: define the feature scope, identify likely rules/content, UX, and implementation risks, and assign non-overlapping work.
+2. Spawn `rules-expert` for rules content, caveats, terminology, source references, and player aid alignment.
+3. Spawn `ux-reviewer` for CSS styling, visual design, responsive layout, readability, touch targets, and iPhone mini fit (1080 x 2340 pixels).
+4. Spawn `software-developer` to implement all required `.html`, `.js`, and `.css` changes after giving it the feature scope and any available rules or UX constraints.
+5. Spawn `tutorial-player` after a usable draft exists, or after implementation, to review play sequence, information timing, labels, and table-use flow.
+6. Main agent: integrate findings, ask `software-developer` for any needed software revisions, run relevant checks, and summarize the completed work.
+
+Subagents should return concise findings with file references. Do not ask multiple subagents to edit the same files in parallel.
+
+### Improvement Workflow
+
+When the user explicitly asks to use the improvement subagent workflow:
+
+1. Main agent: classify the improvement as rules/content, UX/CSS, play-flow, implementation quality, or a combination.
+2. Spawn only the relevant review subagents for the improvement type.
+3. Spawn `software-developer` for all required `.html`, `.js`, and `.css` edits.
+4. Prefer read-only review subagents before implementation when the requested improvement is ambiguous.
+5. Main agent: coordinate follow-up revisions through `software-developer`, then run relevant checks and summarize the result.
