@@ -9,6 +9,8 @@ const ACTIVITY_LEVELS = [
 ];
 
 const GLOBAL_REMINDER = "Update VOF/PDF and Current Activity Level whenever the map changes, except during 3.7.4.";
+const LIMITED_VISIBILITY_TRIGGER = "Overall Visibility Modifier is +2 or greater.";
+const LIMITED_VISIBILITY_EFFECTS = "HQ/Staff max spend 4 Commands. Save limits: Green 2, Line 4, Veteran 6. Max LOS is Close Range unless using Illumination or Night Observation Devices.";
 
 const phases = [
   {
@@ -21,7 +23,6 @@ const phases = [
       {
         id: "event",
         heading: "Friendly Higher HQ Event",
-        doNow: "Do now: check whether a Friendly Higher HQ event occurs.",
         skipWhen: "turn1",
         skipReason: "Skip on Turn 1",
         steps: [
@@ -55,7 +56,6 @@ const phases = [
       {
         id: "3.2.1",
         heading: "3.2.1 Enemy Higher HQ Event Segment",
-        doNow: "Do now: check for an Enemy Higher HQ event.",
         skipWhen: "turn1",
         skipReason: "Skip on Turn 1",
         steps: [
@@ -79,7 +79,6 @@ const phases = [
       {
         id: "3.2.2",
         heading: "3.2.2 Enemy Activity Check Segment",
-        doNow: "Do now: place PC markers, then check every eligible enemy unit.",
         steps: [
           {
             id: "3.2.2-place-pc",
@@ -101,16 +100,16 @@ const phases = [
     ]
   },
   {
-    id: "friendly-command",
-    number: "3.3",
-    title: "Friendly Command Phase",
-    task: "Activate eligible HQs and staff, then use initiative commands.",
-    reminder: "Limited Visibility applies when the overall Visibility Modifier is +2 or greater. HQ/Staff max spend 4. Save limits: Green 2, Line 4, Veteran 6. Max LOS without Illumination/Night Observation Devices is Close Range.",
+    id: "friendly-activation",
+    number: "3.3.1",
+    context: "3.3 Friendly Command Phase",
+    title: "Activation Segment",
+    task: "Activate eligible HQs and staff through the command chain.",
+    reminder: "Limited Visibility applies when the overall Visibility Modifier is +2 or greater.",
     groups: [
       {
         id: "3.3.1",
         heading: "3.3.1 Activation Segment",
-        doNow: "Do now: activate HQs and staff through the command chain.",
         steps: [
           {
             id: "3.3.1-bn",
@@ -128,11 +127,20 @@ const phases = [
             detail: "Draw for Activated Commands, apply modifiers, then spend or save within limits."
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: "friendly-initiative",
+    number: "3.3.2",
+    context: "3.3 Friendly Command Phase",
+    title: "Initiative Segment",
+    task: "Use initiative for HQs, staff, and general commands that were not activated.",
+    reminder: "Limited Visibility applies when the overall Visibility Modifier is +2 or greater.",
+    groups: [
       {
         id: "3.3.2",
         heading: "3.3.2 Initiative Segment",
-        doNow: "Do now: use initiative for HQs, staff, and general commands that were not activated.",
         steps: [
           {
             id: "3.3.2-co",
@@ -169,7 +177,6 @@ const phases = [
       {
         id: "3.4.1",
         heading: "3.4.1 Enemy Higher HQ Event Segment",
-        doNow: "Do now: check for an Enemy Higher HQ event.",
         skipWhen: "turn1",
         skipReason: "Skip on Turn 1",
         steps: [
@@ -193,7 +200,6 @@ const phases = [
       {
         id: "3.4.2",
         heading: "3.4.2 Enemy Activity Check Segment",
-        doNow: "Do now: handle existing enemy fire, then check every eligible enemy unit.",
         steps: [
           {
             id: "3.4.2-no-target",
@@ -224,7 +230,6 @@ const phases = [
       {
         id: "3.5.1",
         heading: "3.5.1 Capture Segment",
-        doNow: "Do now: capture qualifying teams before any retreat checks.",
         steps: [
           {
             id: "3.5.1-capture",
@@ -246,7 +251,6 @@ const phases = [
       {
         id: "3.5.2",
         heading: "3.5.2 Retreat Segment",
-        doNow: "Do now: resolve CS Gas, then retreat eligible teams under VOF.",
         steps: [
           {
             id: "3.5.2-cs-gas",
@@ -277,7 +281,6 @@ const phases = [
       {
         id: "3.6-actions",
         heading: "AT Combat & Vehicle Movement",
-        doNow: "Do now: alternate sides through activated AT-capable units and vehicles.",
         steps: [
           {
             id: "3.6-side-order",
@@ -308,7 +311,6 @@ const phases = [
       {
         id: "3.7.1",
         heading: "3.7.1 Fire Mission Update Segment",
-        doNow: "Do now: update active fire mission markers.",
         steps: [
           {
             id: "3.7.1-remove",
@@ -325,7 +327,6 @@ const phases = [
       {
         id: "3.7.2",
         heading: "3.7.2 Potential Contact Evaluation Segment",
-        doNow: "Do now: evaluate each PC marker on a friendly-occupied card.",
         steps: [
           {
             id: "3.7.2-draw",
@@ -347,7 +348,6 @@ const phases = [
       {
         id: "3.7.3",
         heading: "3.7.3 Pinned Recovery Segment",
-        doNow: "Do now: remove Pinned markers from units that are not under VOF.",
         steps: [
           {
             id: "3.7.3-recover",
@@ -359,7 +359,6 @@ const phases = [
       {
         id: "3.7.4",
         heading: "3.7.4 Combat Effects Segment",
-        doNow: "Do now: resolve Combat Effects without updating VOF/PDF yet.",
         steps: [
           {
             id: "3.7.4-flamethrower",
@@ -395,7 +394,6 @@ const phases = [
       {
         id: "3.8-markers",
         heading: "Remove Markers",
-        doNow: "Do now: remove expiring markers and handle end-of-turn cleanup.",
         steps: [
           {
             id: "3.8-remove-markers",
@@ -417,7 +415,6 @@ const phases = [
       {
         id: "3.8-reset",
         heading: "Reset And Advance",
-        doNow: "Do now: reset remaining turn markers, update fire markers, then advance the turn.",
         steps: [
           {
             id: "3.8-defensive-pc",
@@ -476,6 +473,7 @@ const elements = {
   turnInput: document.querySelector("#turnInput"),
   missionSelect: document.querySelector("#missionSelect"),
   limitedVisibilityInput: document.querySelector("#limitedVisibilityInput"),
+  dashboardVisibilityHelp: document.querySelector("#dashboardVisibilityHelp"),
   activitySelect: document.querySelector("#activitySelect"),
   dashboardPhase: document.querySelector("#dashboardPhase"),
   dashboardFilter: document.querySelector("#dashboardFilter"),
@@ -486,6 +484,7 @@ const elements = {
   stateChips: document.querySelector("#stateChips"),
   phaseActivitySelect: document.querySelector("#phaseActivitySelect"),
   phaseVisibilityInput: document.querySelector("#phaseVisibilityInput"),
+  phaseVisibilityHelp: document.querySelector("#phaseVisibilityHelp"),
   phaseNumber: document.querySelector("#phaseNumber"),
   taskTitle: document.querySelector("#taskTitle"),
   globalReminder: document.querySelector("#globalReminder"),
@@ -498,14 +497,18 @@ function legacyMission(value) {
   return value === "patrol" ? "combatPatrol" : value;
 }
 
+function legacyPhaseId(value) {
+  return value === "friendly-command" ? "friendly-activation" : value;
+}
+
 function migrateLegacyState(saved) {
   const migrated = { ...state };
 
   if (saved.currentId) {
-    migrated.currentPhaseId = saved.currentId;
+    migrated.currentPhaseId = legacyPhaseId(saved.currentId);
   }
   if (saved.currentPhaseId) {
-    migrated.currentPhaseId = saved.currentPhaseId;
+    migrated.currentPhaseId = legacyPhaseId(saved.currentPhaseId);
   }
   if (Number.isFinite(Number(saved.turn))) {
     migrated.turn = Math.max(1, Number.parseInt(saved.turn, 10));
@@ -533,6 +536,7 @@ function loadState() {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved && typeof saved === "object") {
       Object.assign(state, migrateLegacyState(saved));
+      saveState();
       return;
     }
   } catch {
@@ -611,6 +615,16 @@ function syncControls() {
   elements.phaseVisibilityInput.checked = state.limitedVisibility;
   elements.activitySelect.value = state.currentActivityLevel;
   elements.phaseActivitySelect.value = state.currentActivityLevel;
+  syncVisibilityHelp();
+}
+
+function syncVisibilityHelp() {
+  const text = state.limitedVisibility
+    ? `${LIMITED_VISIBILITY_TRIGGER} ${LIMITED_VISIBILITY_EFFECTS}`
+    : LIMITED_VISIBILITY_TRIGGER;
+
+  elements.dashboardVisibilityHelp.textContent = text;
+  elements.phaseVisibilityHelp.textContent = text;
 }
 
 function renderDashboard() {
@@ -650,7 +664,7 @@ function renderPhase() {
   elements.progressText.textContent = `Phase ${index + 1} of ${list.length}`;
   elements.progressBar.style.width = `${percent}%`;
   renderChips();
-  elements.phaseNumber.textContent = phase.number;
+  elements.phaseNumber.textContent = phase.context ? `${phase.context} | ${phase.number}` : phase.number;
   elements.taskTitle.textContent = phase.title;
   elements.globalReminder.textContent = GLOBAL_REMINDER;
   elements.substeps.replaceChildren(...phase.groups.map(createGroup));
@@ -662,14 +676,11 @@ function renderPhase() {
 function createGroup(group) {
   const section = document.createElement("section");
   const heading = document.createElement("h3");
-  const doNow = document.createElement("p");
   const steps = document.createElement("div");
   const skipped = isSkipped(group);
 
   section.className = skipped ? "phase-group is-skipped" : "phase-group";
   heading.textContent = group.heading;
-  doNow.className = "do-now";
-  doNow.textContent = group.doNow;
   steps.className = "checklist";
 
   if (skipped) {
@@ -681,7 +692,7 @@ function createGroup(group) {
   steps.replaceChildren(...group.steps.map((step) => (
     isSkipped(step) ? createSkippedRow(step) : createChecklistRow(step)
   )));
-  section.append(heading, doNow, steps);
+  section.append(heading, steps);
   return section;
 }
 

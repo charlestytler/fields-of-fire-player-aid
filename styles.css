@@ -333,16 +333,10 @@ button {
   line-height: 1.18;
 }
 
-.do-now {
-  margin: 6px 0 10px;
-  color: var(--ink);
-  font-weight: 850;
-  line-height: 1.32;
-}
-
 .checklist {
   display: grid;
   gap: 8px;
+  margin-top: 10px;
 }
 
 .check-row {
@@ -410,8 +404,7 @@ button {
   color: var(--disabled-ink);
 }
 
-.phase-group.is-skipped h3,
-.phase-group.is-skipped .do-now {
+.phase-group.is-skipped h3 {
   color: var(--disabled-ink);
 }
 
