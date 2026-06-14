@@ -95,6 +95,22 @@ When the user explicitly asks to use the new-feature subagent workflow:
 
 Subagents should return concise findings with file references. Do not ask multiple subagents to edit the same files in parallel.
 
+### Design Change Workflow
+
+When the user explicitly asks to use the design-change subagent workflow:
+
+1. Spawn a `product-designer` session with cleared context for the change.
+2. product-designer: Review the design change and identify if there are similar changes elsewhere in the web app that would be needed to maintain consistency, if so ask the user if they would like those modified in the same or similar way.
+3. product-designer: define the total change scope, identify likely rules/content, UX, and implementation risks, and assign non-overlapping work.
+4. Present a summary of the proposed changes to the user for approval before proceeding.
+4. Start a new session of subagents with cleared context for the change.
+5. Spawn `rules-expert` and `ux-reviewer` to review the change.
+6. If `rules-expert` proposes a modification from what the user requested, ask the user if the change should be implemented.
+7. Spawn `software-developer` to implement the change in code. All software file edits must still be done by `software-developer`.
+8. `product-designer` and `ux-reviewer` should review the implementation and ask `software-developer` to make focused changes if there are issues.
+9. `product-designer` shall document any design concepts that are not obvious from `FEATURES.md` in a root `DESIGN.md` file for future reference.
+10. Main agent: commit the changes with a summary message prefixed with `[agent]`.
+
 ### Improvement Workflow
 
 When the user explicitly asks to use the improvement subagent workflow:
