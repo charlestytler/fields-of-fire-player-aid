@@ -10,6 +10,9 @@
   --warning: #77592b;
   --warning-soft: #f1dfba;
   --danger-soft: #f4e2d7;
+  --disabled-soft: #ece8df;
+  --disabled-line: #beb7aa;
+  --disabled-ink: #746e64;
   --shadow: 0 14px 34px rgba(29, 37, 32, 0.16);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -420,43 +423,31 @@ button {
 }
 
 .phase-group.is-skipped {
-  margin: 8px 0;
-  padding: 12px;
-  color: #6f5c44;
-  background: var(--danger-soft);
-  border: 1px dashed #b88c72;
-  border-radius: 8px;
+  color: var(--disabled-ink);
 }
 
 .phase-group.is-skipped h3,
 .phase-group.is-skipped .do-now {
-  color: #6f4c36;
+  color: var(--disabled-ink);
 }
 
 .check-row.is-skipped-row {
-  color: #6f5c44;
-  background: var(--danger-soft);
+  color: var(--disabled-ink);
+  background: var(--disabled-soft);
   border-style: dashed;
-  border-color: #b88c72;
+  border-color: var(--disabled-line);
   cursor: default;
 }
 
 .is-skipped-row .check-marker {
-  color: #6f4c36;
+  color: var(--disabled-ink);
   background: transparent;
-  border-color: #b88c72;
+  border-color: var(--disabled-line);
 }
 
 .is-skipped-row .check-copy strong,
 .is-skipped-row .check-copy span {
-  color: #6f4c36;
-}
-
-.skip-reason {
-  margin: 0;
-  color: #6f4c36;
-  font-size: 0.9rem;
-  font-weight: 850;
+  color: var(--disabled-ink);
 }
 
 .phase-controls {

@@ -15,20 +15,20 @@ const phases = [
     id: "higher-hq",
     number: "3.1",
     title: "Friendly Higher HQ Event Phase",
-    task: "Starting on Turn 2, check for a Friendly Higher HQ event before mission-specific activity.",
-    reminder: "Starting on Turn 2, draw an Action card and check the HQ radio icon. Skip this phase on Turn 1.",
+    task: "Check for a Friendly Higher HQ event before mission-specific activity.",
+    reminder: "Draw an Action card and check the HQ radio icon when this phase is active.",
     groups: [
       {
         id: "event",
         heading: "Friendly Higher HQ Event",
         doNow: "Do now: check whether a Friendly Higher HQ event occurs.",
         skipWhen: "turn1",
-        skipReason: "Starting on Turn 2.",
+        skipReason: "Skip on Turn 1",
         steps: [
           {
             id: "3.1-event-draw",
-            label: "Starting on Turn 2, draw an Action card and check for the HQ radio icon.",
-            detail: "Draw only when this phase is active."
+            label: "Draw an Action card and check for the HQ radio icon.",
+            detail: "Use the HQ radio icon check to determine whether an event occurs."
           },
           {
             id: "3.1-resolve-event",
@@ -49,19 +49,19 @@ const phases = [
     number: "3.2",
     title: "Enemy Activity Phase: Defensive",
     task: "Run this phase only during Defensive Missions.",
-    reminder: "Turn 1 skips only 3.2.1. Still run the Enemy Activity Check Segment.",
+    reminder: "Resolve any Enemy Higher HQ event segment first, then run eligible enemy Activity Checks.",
     missions: ["defensive"],
     groups: [
       {
         id: "3.2.1",
         heading: "3.2.1 Enemy Higher HQ Event Segment",
-        doNow: "Do now: check for an Enemy Higher HQ event unless this is Turn 1.",
+        doNow: "Do now: check for an Enemy Higher HQ event.",
         skipWhen: "turn1",
-        skipReason: "Starting on Turn 2.",
+        skipReason: "Skip on Turn 1",
         steps: [
           {
             id: "3.2.1-draw",
-            label: "Starting on Turn 2, draw an Action card and check for the HQ radio icon.",
+            label: "Draw an Action card and check for the HQ radio icon.",
             detail: "If the icon appears, resolve the Enemy Higher HQ Event."
           },
           {
@@ -89,12 +89,12 @@ const phases = [
           {
             id: "3.2.2-check-units",
             label: "Check every enemy unit on the map for activity.",
-            detail: "Use random card order and the Activity Check Hierarchy. Skip units affected by 3.2.1."
+            detail: "Use random card order and the Activity Check Hierarchy. Enemy units placed on the map or taking/attempting actions due to a Higher HQ Event do not perform further Activity Checks in this phase."
           },
           {
             id: "3.2.2-continue",
             label: "Complete all enemy activity before moving to Friendly Command.",
-            detail: "Turn 1 does not skip this segment."
+            detail: "Continue after every eligible enemy Activity Check is resolved."
           }
         ]
       }
@@ -163,19 +163,19 @@ const phases = [
     number: "3.4",
     title: "Enemy Activity Phase: Offensive / Combat Patrol",
     task: "Run this phase for Offensive Missions or Combat Patrols.",
-    reminder: "Turn 1 skips only 3.4.1. Still run the Enemy Activity Check Segment.",
+    reminder: "Resolve any Enemy Higher HQ event segment first, then run eligible enemy Activity Checks.",
     missions: ["offensive", "combatPatrol"],
     groups: [
       {
         id: "3.4.1",
         heading: "3.4.1 Enemy Higher HQ Event Segment",
-        doNow: "Do now: check for an Enemy Higher HQ event unless this is Turn 1.",
+        doNow: "Do now: check for an Enemy Higher HQ event.",
         skipWhen: "turn1",
-        skipReason: "Starting on Turn 2.",
+        skipReason: "Skip on Turn 1",
         steps: [
           {
             id: "3.4.1-draw",
-            label: "Starting on Turn 2, draw an Action card and check for the HQ radio icon.",
+            label: "Draw an Action card and check for the HQ radio icon.",
             detail: "If the icon appears, resolve the Enemy Higher HQ Event."
           },
           {
@@ -203,12 +203,12 @@ const phases = [
           {
             id: "3.4.2-check-units",
             label: "Check every enemy unit on the map for activity.",
-            detail: "Use random card order and the Activity Check Hierarchy. Skip units affected by 3.4.1."
+            detail: "Use random card order and the Activity Check Hierarchy. Enemy units placed on the map or taking/attempting actions due to a Higher HQ Event do not perform further Activity Checks in this phase."
           },
           {
             id: "3.4.2-continue",
             label: "Complete all enemy activity before Mutual Capture & Retreat.",
-            detail: "Turn 1 does not skip this segment."
+            detail: "Continue after every eligible enemy Activity Check is resolved."
           }
         ]
       }
@@ -673,25 +673,17 @@ function createGroup(group) {
   section.className = skipped ? "phase-group is-skipped" : "phase-group";
   heading.textContent = group.heading;
   doNow.className = "do-now";
-  doNow.textContent = skipped ? `${group.skipReason} ${group.doNow}` : group.doNow;
+  doNow.textContent = group.doNow;
   steps.className = "checklist";
 
-  if (skipped) {
-    const note = document.createElement("p");
-    note.className = "skip-reason";
-    note.textContent = group.skipReason;
-    section.append(heading, doNow, note);
-    return section;
-  }
-
   steps.replaceChildren(...group.steps.map((step) => (
-    isSkipped(step) ? createSkippedRow(step) : createChecklistRow(step)
+    skipped || isSkipped(step) ? createSkippedRow(step, group.skipReason) : createChecklistRow(step)
   )));
   section.append(heading, doNow, steps);
   return section;
 }
 
-function createSkippedRow(step) {
+function createSkippedRow(step, groupSkipReason = "") {
   const row = document.createElement("div");
   const marker = document.createElement("span");
   const copy = document.createElement("span");
@@ -703,7 +695,7 @@ function createSkippedRow(step) {
   marker.textContent = "-";
   copy.className = "check-copy";
   label.textContent = step.label;
-  detail.textContent = step.skipReason || "Skipped for the current turn.";
+  detail.textContent = step.skipReason || groupSkipReason || "Skipped for the current turn.";
   copy.append(label, detail);
   row.append(marker, copy);
   return row;
@@ -767,7 +759,7 @@ function renderJumpList() {
 
     button.type = "button";
     label.textContent = `${phase.number} ${phase.title}`;
-    meta.textContent = turnSkippedGroups(phase).length > 0 ? "Turn 1 has skipped rows/segments inside this phase." : "Included in current mission sequence.";
+    meta.textContent = turnSkippedGroups(phase).length > 0 ? "Contains skipped rows/segments for the current turn." : "Included in current mission sequence.";
     button.append(label, meta);
     if (phase.id === activeId) {
       button.setAttribute("aria-current", "step");
