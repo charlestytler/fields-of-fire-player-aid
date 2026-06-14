@@ -300,7 +300,7 @@ button {
 }
 
 .global-reminder {
-  margin: 14px 0 0;
+  margin: 13px 0;
   padding: 12px;
   border-radius: 7px;
   color: #1f3428;
@@ -308,6 +308,10 @@ button {
   border-left: 5px solid var(--accent);
   font-weight: 760;
   line-height: 1.35;
+}
+
+.phase-group + .global-reminder {
+  margin-top: 13px;
 }
 
 .substeps {

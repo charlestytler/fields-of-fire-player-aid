@@ -1,4 +1,4 @@
-const CACHE_NAME = "fof-turn-aid-v4";
+const CACHE_NAME = "fof-turn-aid-v5";
 const STATIC_ASSETS = [
   "./",
   "index.html",

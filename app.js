@@ -8,7 +8,8 @@ const ACTIVITY_LEVELS = [
   "Heavily Engaged"
 ];
 
-const GLOBAL_REMINDER = "Update VOF/PDF and Current Activity Level whenever the map changes, except during 3.7.4.";
+const GLOBAL_REMINDER = "Update VOF/PDF and Current Activity Level whenever the map changes.";
+const MUTUAL_COMBAT_REMINDER = "Update VOF/PDF and Current Activity Level whenever the map changes, except during 3.7.4.";
 const LIMITED_VISIBILITY_TRIGGER = "Overall Visibility Modifier is +2 or greater.";
 const LIMITED_VISIBILITY_EFFECTS = "HQ/Staff max spend 4 Commands. Save limits: Green 2, Line 4, Veteran 6. Max LOS is Close Range unless using Illumination or Night Observation Devices.";
 
@@ -487,7 +488,6 @@ const elements = {
   phaseVisibilityHelp: document.querySelector("#phaseVisibilityHelp"),
   phaseNumber: document.querySelector("#phaseNumber"),
   taskTitle: document.querySelector("#taskTitle"),
-  globalReminder: document.querySelector("#globalReminder"),
   substeps: document.querySelector("#substeps"),
   previousButton: document.querySelector("#previousButton"),
   nextButton: document.querySelector("#nextButton")
@@ -666,11 +666,35 @@ function renderPhase() {
   renderChips();
   elements.phaseNumber.textContent = phase.context ? `${phase.context} | ${phase.number}` : phase.number;
   elements.taskTitle.textContent = phase.title;
-  elements.globalReminder.textContent = GLOBAL_REMINDER;
-  elements.substeps.replaceChildren(...phase.groups.map(createGroup));
+  elements.substeps.replaceChildren(...createPhaseItems(phase));
   elements.previousButton.disabled = index === 0;
   elements.nextButton.textContent = phase.id === "clean-up" ? "End Turn" : "Next Phase";
   saveState();
+}
+
+function createPhaseItems(phase) {
+  const items = [];
+
+  phase.groups.forEach((group) => {
+    if (phase.id === "mutual-combat" && group.id === "3.7.4") {
+      items.push(createGlobalReminder(phase));
+    }
+    items.push(createGroup(group));
+  });
+
+  if (phase.id !== "mutual-combat") {
+    items.push(createGlobalReminder(phase));
+  }
+
+  return items;
+}
+
+function createGlobalReminder(phase) {
+  const reminder = document.createElement("div");
+  reminder.className = "global-reminder";
+  reminder.setAttribute("role", "note");
+  reminder.textContent = phase.id === "mutual-combat" ? MUTUAL_COMBAT_REMINDER : GLOBAL_REMINDER;
+  return reminder;
 }
 
 function createGroup(group) {
