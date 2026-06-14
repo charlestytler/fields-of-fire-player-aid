@@ -676,14 +676,27 @@ function createGroup(group) {
   doNow.textContent = group.doNow;
   steps.className = "checklist";
 
+  if (skipped) {
+    steps.replaceChildren(createSkippedGroupRow(group));
+    section.append(heading, steps);
+    return section;
+  }
+
   steps.replaceChildren(...group.steps.map((step) => (
-    skipped || isSkipped(step) ? createSkippedRow(step, group.skipReason) : createChecklistRow(step)
+    isSkipped(step) ? createSkippedRow(step) : createChecklistRow(step)
   )));
   section.append(heading, doNow, steps);
   return section;
 }
 
-function createSkippedRow(step, groupSkipReason = "") {
+function createSkippedGroupRow(group) {
+  return createSkippedRow({
+    label: group.heading,
+    skipReason: group.skipReason
+  });
+}
+
+function createSkippedRow(step) {
   const row = document.createElement("div");
   const marker = document.createElement("span");
   const copy = document.createElement("span");
@@ -695,7 +708,7 @@ function createSkippedRow(step, groupSkipReason = "") {
   marker.textContent = "-";
   copy.className = "check-copy";
   label.textContent = step.label;
-  detail.textContent = step.skipReason || groupSkipReason || "Skipped for the current turn.";
+  detail.textContent = step.skipReason || "Skipped for the current turn.";
   copy.append(label, detail);
   row.append(marker, copy);
   return row;
