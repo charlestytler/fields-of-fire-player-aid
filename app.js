@@ -488,8 +488,6 @@ const elements = {
   phaseVisibilityInput: document.querySelector("#phaseVisibilityInput"),
   phaseNumber: document.querySelector("#phaseNumber"),
   taskTitle: document.querySelector("#taskTitle"),
-  taskCopy: document.querySelector("#taskCopy"),
-  reminderStrip: document.querySelector("#reminderStrip"),
   globalReminder: document.querySelector("#globalReminder"),
   substeps: document.querySelector("#substeps"),
   previousButton: document.querySelector("#previousButton"),
@@ -654,8 +652,6 @@ function renderPhase() {
   renderChips();
   elements.phaseNumber.textContent = phase.number;
   elements.taskTitle.textContent = phase.title;
-  elements.taskCopy.textContent = phase.task;
-  elements.reminderStrip.textContent = phase.reminder;
   elements.globalReminder.textContent = GLOBAL_REMINDER;
   elements.substeps.replaceChildren(...phase.groups.map(createGroup));
   elements.previousButton.disabled = index === 0;

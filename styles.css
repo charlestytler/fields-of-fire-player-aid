@@ -187,7 +187,7 @@ button {
 
 .check-field {
   grid-template-columns: 1fr auto;
-  align-items: center;
+  align-items: start;
 }
 
 .check-field span,
@@ -197,7 +197,8 @@ button {
 
 .check-field input {
   grid-column: 2;
-  grid-row: 1 / span 2;
+  grid-row: 1;
+  justify-self: end;
 }
 
 .status-card,
@@ -298,32 +299,15 @@ button {
   font-size: clamp(1.45rem, 8vw, 2.25rem);
 }
 
-.task-copy {
-  margin: 12px 0 0;
-  color: #29342f;
-  font-size: 1rem;
-  line-height: 1.42;
-}
-
-.reminder-strip,
 .global-reminder {
   margin: 14px 0 0;
   padding: 12px;
   border-radius: 7px;
-  font-weight: 760;
-  line-height: 1.35;
-}
-
-.reminder-strip {
-  color: #352711;
-  background: var(--warning-soft);
-  border-left: 5px solid var(--warning);
-}
-
-.global-reminder {
   color: #1f3428;
   background: #e7efe1;
   border-left: 5px solid var(--accent);
+  font-weight: 760;
+  line-height: 1.35;
 }
 
 .substeps {
@@ -573,12 +557,6 @@ button {
     padding: 12px;
   }
 
-  .task-copy {
-    margin-top: 8px;
-    font-size: 0.96rem;
-  }
-
-  .reminder-strip,
   .global-reminder,
   .substeps {
     margin-top: 10px;
